@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Samaev/calendar_react-gen/static/css/main.c019a23e.css",
+    "main.js": "/Samaev/calendar_react-gen/static/js/main.367d50a9.js",
+    "index.html": "/Samaev/calendar_react-gen/index.html",
+    "main.c019a23e.css.map": "/Samaev/calendar_react-gen/static/css/main.c019a23e.css.map",
+    "main.367d50a9.js.map": "/Samaev/calendar_react-gen/static/js/main.367d50a9.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c019a23e.css",
+    "static/js/main.367d50a9.js"
+  ]
+}
