@@ -9,11 +9,8 @@ const savedEventReducer = (state, { type, payload }) => {
       return [...state, payload];
     case "update":
       return state.map((event) =>{
-        console.log('update');
         return event.id === payload.id ? payload : event;
-      }
-    
-      );
+      });
     case "delete":
       return state.filter((event) => event.id !== payload.id);
     default:

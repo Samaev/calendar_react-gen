@@ -1,10 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../context/Context";
 
 export default function Event() {
   const { setShowEventModal, daySelected, setDaySelected, dispatchCallEvent, selectedEvent, setSelectedEvent } =
     useContext(Context);
-  const [timeStamp, setTimeStamp] = useState('12-00')
+  const [timeStamp, setTimeStamp] = useState('12-00');
+  const [errorMessage, setErrorMessage] = useState(false);
+  const [data, setData] = useState(false);
 
   const [title, setTitle] = useState(selectedEvent ? selectedEvent.title : '');
   const [description, setDescription] = useState(
@@ -16,11 +18,12 @@ export default function Event() {
     const calendarEvent = {
       title,
       description,
-      timeStamp,
+      timeStamp: timeStamp,
       day: daySelected.valueOf(),
       id: selectedEvent ? selectedEvent.id : Date.now(),
     };
-    if (title.length === 0) {
+    if (title.length === 0 || !data) {
+      setErrorMessage(true);
       return;
     }
     if (selectedEvent) {
@@ -30,9 +33,8 @@ export default function Event() {
     }
     setShowEventModal(false);
     setSelectedEvent(null);
+    setErrorMessage(false);
       };
-console.log(timeStamp)
-console.log(daySelected)
   return (
     <div className="h-screen w-full fixed top-0 flex justify-center items-center">
       <form
@@ -40,7 +42,10 @@ console.log(daySelected)
         className="bg-white rounded-lg shadow-2xl w-1/4"
       >
         <div className="bg-green-100 px-4 pu-2 flex justify-between items-center">
-          <p>Add new idea item</p>
+          { title.length === 0 
+          ? (<p>Add new idea item</p>)
+          : (<p>Edit idea item</p>)
+          }
           <div>
             {selectedEvent &&(
               <span
@@ -75,6 +80,7 @@ console.log(daySelected)
               className="pt-3 border-0 text-green-600 text-xl font-semibold pb-2 w-full border-b-2 border-green-200 focus:outline-none focus:border-green-300"
               onChange={(event) => setTitle(event.target.value)}
             />
+            {(errorMessage || !title.length) && <p className="text-red-200 text-sm">Title musn`t be empty</p>}
             <div>
               <textarea
                 type="text"
@@ -87,12 +93,17 @@ console.log(daySelected)
             </div>
             <input
               type="date"
-              value={daySelected.format("YYYY-MM-DD")}
-              onChange={event=>setDaySelected(event.target.value.format("YYYY-MM-DD"))}
+              required
+              value={daySelected}
+              onChange={event=>{
+                setData(true);
+                setDaySelected(event.target.value)
+                }
+              }
             />
+            {!data && <p className="text-red-200 text-sm">Date must be chosen</p>}
             <input type="time" value={timeStamp} onChange={(event)=>setTimeStamp(event.target.value)}/>
             <p>Begin time: {timeStamp}</p>
-
           </div>
         </div>
         <footer className="flex justify-end w-100 border-t p-5 mt-5">

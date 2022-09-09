@@ -1,15 +1,12 @@
 import dayjs from "dayjs";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { Context } from "../context/Context";
-import logo from "../images/calen-logo.png";
-import DatePicker from "react-date-picker";
 
 import "react-date-picker/dist/DatePicker.css";
 import "react-calendar/dist/Calendar.css";
 
 export default function CalendarHeader() {
-  const {monthIndex, setMonthIndex, setShowEventModal, daySelected} = useContext(Context);
-  const [value, onChange] = useState(new Date());
+  const {monthIndex, setMonthIndex, setShowEventModal, setDaySelected, daySelected} = useContext(Context);
 
   const handlePrevMonth = () => {
     setMonthIndex(monthIndex - 1);
@@ -20,7 +17,18 @@ export default function CalendarHeader() {
   const handleNowadays = () => {
     setMonthIndex(dayjs().month());
   }
-
+  const handleSmallCalendar = (event)=> {
+      const arrDate = new Date();
+      const resDate = arrDate.getFullYear() * 12 + +arrDate.getMonth();
+      const nowDate = event.target.value.toString().split('-');
+      const resNow = nowDate[0] * 12 + +nowDate[1];
+       
+      setDaySelected(event.target.value);
+      setMonthIndex(resNow - resDate + 7);
+  }
+  useEffect(()=>{
+    setDaySelected(daySelected)
+  })
   return (
     <header className="px-4 py-2 flex items-center">
       <button
@@ -29,11 +37,10 @@ export default function CalendarHeader() {
       >
         +
       </button>
-      <img src={logo} alt="calendar logo" className="mr-2 w-12 h-12" />
       <h1 className="mr-10 text-xl text-green-500 font-bold">Calendar</h1>
       <button
         onClick={handleNowadays}
-       className="border rounded py-2 px-4 mr-5">Today</button>
+        className="border rounded py-2 px-4 mr-5">Today</button>
       <button onClick={handlePrevMonth}>
         <span className="material-icons-outlined cursor-pointer text-green-600 mx-2">
             chevron_left
@@ -45,7 +52,11 @@ export default function CalendarHeader() {
             chevron_right
         </span>
       </button>
-      <DatePicker onChange={onChange} value={value} />
+      <input 
+        onChange={(e)=>handleSmallCalendar(e)}
+        value={daySelected}
+        type="date"
+      />
     </header>
   );
 }
