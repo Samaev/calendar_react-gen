@@ -42,8 +42,6 @@ export default function ContextWrapper(props) {
     localStorage.setItem("savedEvents", JSON.stringify(savedEvents));
   }, [savedEvents]);
 
-  console.log(savedEvents);
-
   return (
     <Context.Provider
       value={{

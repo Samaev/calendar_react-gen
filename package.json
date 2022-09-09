@@ -1,5 +1,6 @@
 {
   "name": "calendar_react-gen",
+  "homepage": "https://github.com/Samaev/calendar_react-gen",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -9,12 +10,17 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "dayjs": "^1.11.5",
+    "rc-time-picker": "^3.7.3",
     "react": "^18.2.0",
+    "react-date-picker": "^8.4.0",
+    "react-datepicker": "^4.8.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
@@ -40,6 +46,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.8",
+    "gh-pages": "^4.0.0",
     "postcss": "^8.4.16",
     "postcss-loader": "^3.0.0",
     "tailwindcss": "^3.1.8"

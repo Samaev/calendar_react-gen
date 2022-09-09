@@ -1,15 +1,18 @@
 import dayjs from "dayjs";
-import React, { useContext } from "react";
-import SmallCalendar from "./SmallCalendar";
+import React, { useContext, useState } from "react";
 import { Context } from "../context/Context";
 import logo from "../images/calen-logo.png";
+import DatePicker from "react-date-picker";
+
+import "react-date-picker/dist/DatePicker.css";
+import "react-calendar/dist/Calendar.css";
 
 export default function CalendarHeader() {
-  const {monthIndex, setMonthIndex, setShowEventModal} = useContext(Context);
+  const {monthIndex, setMonthIndex, setShowEventModal, daySelected} = useContext(Context);
+  const [value, onChange] = useState(new Date());
 
   const handlePrevMonth = () => {
     setMonthIndex(monthIndex - 1);
-    console.log(monthIndex - 1)
   };
   const handleNextMonth = () => {
     setMonthIndex(monthIndex + 1);
@@ -17,6 +20,7 @@ export default function CalendarHeader() {
   const handleNowadays = () => {
     setMonthIndex(dayjs().month());
   }
+
   return (
     <header className="px-4 py-2 flex items-center">
       <button
@@ -41,7 +45,7 @@ export default function CalendarHeader() {
             chevron_right
         </span>
       </button>
-      <SmallCalendar />
+      <DatePicker onChange={onChange} value={value} />
     </header>
   );
 }
