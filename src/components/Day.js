@@ -34,14 +34,18 @@ export default function Day({day}) {
           className="flex-1 cursor-pointer"
           onClick={()=>{
             setShowEventModal(true);
-            setDaySelected(day);
+            setDaySelected(day.format('YYYY-MM-DD'));
           }}
         >
           {dayEvents.map((event, index)=>(
             <div
               className="bg-green-200 p-1 mr-3 text-sm rounded mb-1 truncate"
               key={index}
-              onClick={()=>setSelectedEvent(event)}
+              onClick={()=>{
+                setSelectedEvent(event);
+                setDaySelected(event.day);
+              }
+              }
             >
               {event.title}
             </div>

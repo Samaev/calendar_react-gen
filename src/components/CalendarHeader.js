@@ -22,13 +22,20 @@ export default function CalendarHeader() {
       const resDate = arrDate.getFullYear() * 12 + +arrDate.getMonth();
       const nowDate = event.target.value.toString().split('-');
       const resNow = nowDate[0] * 12 + +nowDate[1];
-       
       setDaySelected(event.target.value);
       setMonthIndex(resNow - resDate + 7);
   }
+
+  const handleTodayDate =()=> {
+    const date = new Date();
+    const dateString = date.getFullYear()+ '-'+ ("0"+(date.getMonth()+1)).slice(-2) +'-'+ ("0" + date.getDate()).slice(-2);
+    setDaySelected(dateString);
+  }
+
   useEffect(()=>{
-    setDaySelected(daySelected)
-  })
+    setDaySelected(Date())
+    handleTodayDate();
+  }, [])
   return (
     <header className="px-4 py-2 flex items-center">
       <button
