@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../context/Context";
+import axios  from "axios";
 
 export default function Event() {
   const {
@@ -16,7 +17,7 @@ export default function Event() {
   const [description, setDescription] = useState(
     selectedEvent ? selectedEvent.description : ""
   );
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const calendarEvent = {
       title,
@@ -25,6 +26,15 @@ export default function Event() {
       day: daySelected.valueOf(),
       id: selectedEvent ? selectedEvent.id : Date.now(),
     };
+    await axios
+    .post(`http://localhost:3010/events`, {
+      title,
+      description,
+      timeStamp: timeStamp,
+      day: daySelected.valueOf(),
+      iid: selectedEvent ? selectedEvent.id : Date.now(),
+    }
+    )
     if (title.length === 0) {
       return;
     }

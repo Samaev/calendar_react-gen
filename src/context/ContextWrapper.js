@@ -4,6 +4,7 @@ import { Context } from "./Context";
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import dayjs from "dayjs";
+import axios from "axios";
 
 const savedEventReducer = (state, { type, payload }) => {
   switch (type) {
@@ -32,15 +33,29 @@ export default function ContextWrapper(props) {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [daySelected, setDaySelected] = useState(dayjs());
   const [searchParams, setSearchParams] = useSearchParams();
+  const [refresh, setRefresh] = useState(false);
+console.log(selectedEvent)
+  useEffect(async () => {
+    await axios
+      .get(`http://localhost:3010/events`)
+      .then((events) => {
+        setEvents(events);
+        console.log("Data loaded successfully");
+        setRefresh(!refresh);
+      })
+      .catch((error) => alert(error));
+  }, []);
 
   const currentMonth =
     searchParams.get("monthIndex") || `${new Date().getMonth() + 1}`;
+
   const [savedEvents, dispatchCallEvent] = useReducer(
     savedEventReducer,
     [],
     initEvents
   );
 
+  const [events, setEvents] = useState(savedEvents);
   const followDate = useCallback(
     (action) => {
       switch (action) {
@@ -67,6 +82,7 @@ export default function ContextWrapper(props) {
   useEffect(() => {
     localStorage.setItem("savedEvents", JSON.stringify(savedEvents));
   }, [savedEvents]);
+
   useEffect(() => {
     setMonthIndex(currentMonth - 1);
   }, [currentMonth]);
