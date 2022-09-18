@@ -10,7 +10,7 @@ export default function Event() {
     selectedEvent,
     setSelectedEvent,
   } = useContext(Context);
-  const [timeStamp, setTimeStamp] = useState("12-00");
+  const [timeStamp, setTimeStamp] = useState("12:00");
 
   const [title, setTitle] = useState(selectedEvent ? selectedEvent.title : "");
   const [description, setDescription] = useState(

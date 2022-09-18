@@ -13,6 +13,7 @@ export default function CalendarHeader() {
     setDaySelected,
     daySelected,
     followDate,
+    setSearchParams,
   } = useContext(Context);
 
   const handlePrevMonth = () => {
@@ -34,6 +35,7 @@ export default function CalendarHeader() {
     const resNow = nowDate[0] * 12 + +nowDate[1];
     setDaySelected(event.target.value);
     setMonthIndex(resNow - resDate + 7);
+    setSearchParams({ monthIndex: `${monthIndex}` });
   };
 
   const handleTodayDate = () => {
@@ -50,7 +52,8 @@ export default function CalendarHeader() {
   useEffect(() => {
     setDaySelected(Date());
     handleTodayDate();
-  }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [monthIndex]);
   return (
     <header className="px-4 py-2 flex items-center">
       <button

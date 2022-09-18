@@ -10,4 +10,5 @@ export const Context = React.createContext({
   selectedEvent: null,
   setSelectedEvent: () => {},
   followDate: (action)=>{},
+  setSearchParams: ()=>{},
 });

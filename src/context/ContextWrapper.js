@@ -34,7 +34,6 @@ export default function ContextWrapper(props) {
 
   const currentMonth =
     searchParams.get("monthIndex") || `${new Date().getMonth() + 1}`;
-  console.log(currentMonth);
   const [savedEvents, dispatchCallEvent] = useReducer(
     savedEventReducer,
     [],
@@ -46,7 +45,7 @@ export default function ContextWrapper(props) {
       switch (action) {
         case "future":
           setMonthIndex(currentMonth + 1);
-          setSearchParams({ monthIndex: `${monthIndex}` });
+          setSearchParams({ monthIndex: `${monthIndex + 1}` });
 
           break;
         case "past":
@@ -84,6 +83,7 @@ export default function ContextWrapper(props) {
         selectedEvent,
         setSelectedEvent,
         followDate,
+        setSearchParams,
       }}
     >
       {props.children}
