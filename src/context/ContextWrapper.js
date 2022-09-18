@@ -8,7 +8,7 @@ const savedEventReducer = (state, { type, payload }) => {
     case "push":
       return [...state, payload];
     case "update":
-      return state.map((event) =>{
+      return state.map((event) => {
         return event.id === payload.id ? payload : event;
       });
     case "delete":
@@ -16,7 +16,7 @@ const savedEventReducer = (state, { type, payload }) => {
     default:
       throw new Error();
   }
-}
+};
 
 const initEvents = () => {
   const storageEvents = localStorage.getItem("savedEvents");

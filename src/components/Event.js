@@ -73,7 +73,11 @@ export default function Event() {
         </div>
         <div className="p-3">
           <div>
-            {selectedEvent && <p>Created at {selectedEvent.timeStamp} on {selectedEvent.day}</p>}
+            {selectedEvent && (
+              <p>
+                Created at {selectedEvent.timeStamp} on {selectedEvent.day}
+              </p>
+            )}
             <div>Title*</div>
             <input
               type="text"

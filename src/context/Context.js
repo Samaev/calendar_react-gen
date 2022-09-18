@@ -8,5 +8,5 @@ export const Context = React.createContext({
   dispatchCallEvent: ({ type, payload }) => {},
   savedEvents: [],
   selectedEvent: null,
-  setSelectedEvent: ()=>{},
+  setSelectedEvent: () => {},
 });
