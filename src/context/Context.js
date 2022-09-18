@@ -9,4 +9,5 @@ export const Context = React.createContext({
   savedEvents: [],
   selectedEvent: null,
   setSelectedEvent: () => {},
+  followDate: (action)=>{},
 });

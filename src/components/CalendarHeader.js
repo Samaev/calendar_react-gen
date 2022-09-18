@@ -12,15 +12,19 @@ export default function CalendarHeader() {
     setShowEventModal,
     setDaySelected,
     daySelected,
+    followDate,
   } = useContext(Context);
 
   const handlePrevMonth = () => {
+    followDate("past");
     setMonthIndex(monthIndex - 1);
   };
   const handleNextMonth = () => {
+    followDate("future");
     setMonthIndex(monthIndex + 1);
   };
   const handleNowadays = () => {
+    followDate("now");
     setMonthIndex(dayjs().month());
   };
   const handleSmallCalendar = (event) => {
